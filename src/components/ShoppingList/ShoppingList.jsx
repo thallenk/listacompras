@@ -2,15 +2,26 @@ import React from "react";
 import CheckBox from "../../shared/CheckBox/CheckBox";
 import * as S from './ShoppingList.styles'
 
-function ShoppingList({title, }) {
+function ShoppingList({title, products, onToggle}) {
     return(
         <S.Wrapper >
             <S.Title>
                 {title}:
             </S.Title>
             <S.Array>
-                <CheckBox value= {true} title="Alface" />
-                <CheckBox value= {true} title="Arroz" />
+               { 
+
+                products.map(product => 
+                <CheckBox 
+                value= {product.checked}
+                title= {product.name}
+                onClick= {() => onToggle(product.id, product.checked)}
+                 /> )
+
+               
+               
+               }
+
             </S.Array>
         </S.Wrapper>
     )
