@@ -3,6 +3,7 @@ import CheckBox from "../../shared/CheckBox/CheckBox";
 import LineChart from "../../shared/LineChart/LineChart";
 import AppContainer from "../AppContainer/AppContainer";
 import AppHeader from "../AppHeader/AppHeader";
+import ShoppingList from "../ShoppingList/ShoppingList";
 import * as S from './App.styles'
 
 function App() {
@@ -25,24 +26,11 @@ function App() {
                 <AppHeader/>
                 <AppContainer 
                 left = {
-                    <div>
-                        produtos disponíveis:
-
-                        <CheckBox
-                        value = {lettuce}
-                        title = 'Alface'
-                        onClick = {() => setLettuce(!lettuce)}/>
-                        <CheckBox
-                        value = {rice}
-                        title = 'Arroz'
-                        onClick = {() => setRice(!rice)}/>
-                    </div>
-                }
+                <ShoppingList 
+                title= 'produtos disponíveis'
+                products =''/>}
                 middle = {
-                    <div >
-                        Sua lista de Compras
-                    </div>
-                }
+                <ShoppingList title ='sua lista de compras'/> }
                 right = {
                     <div>
                         Estatisticas
