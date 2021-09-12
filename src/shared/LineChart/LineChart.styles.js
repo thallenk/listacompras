@@ -5,10 +5,10 @@ export const Wrapper = styled.div`
     flex-direction: column;
 
     margin-bottom: 12px;
-    
+
     span{
         font-size: 12px;
-        color: #004D61;
+        color: #fda109;
         margin-bottom: 4px;
     }
 

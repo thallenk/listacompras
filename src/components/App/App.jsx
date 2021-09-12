@@ -14,12 +14,18 @@ function App() {
 
     const [products, setProducts] = useState(productsMock.products)
     const [selectedProducts, setSelectedProducts] = useState([])
+    const [totalPrice, setTotalPrice] = useState(0) 
 
 
     useEffect(() => {
         const newSelectedProducts = products.filter((product) => product.checked )
         setSelectedProducts(newSelectedProducts)
     }, [products])
+
+    useEffect(() => {
+        const total = selectedProducts.map(product => product.price).reduce((a,b) => a + b, 0)
+        setTotalPrice(total)
+    }, [selectedProducts])
     // const [health, setHealth] = useState(20)
 
     // muda o estado da barrinha depois de 5 segundos
@@ -84,6 +90,20 @@ function App() {
                         percentage = {extractPercentage(
                             selectedProducts.length,
                             selectedProducts.filter(product => product.tags.includes('others')).length)}/>
+                        
+                        <S.PriceContainer>
+                            <h2>
+                                previsão de gastos:
+                            </h2>
+                            <div>
+                                {/* o toLocalelString resolve o problema de float do js e retorna o preço no padrão BR */}
+                                {totalPrice.toLocaleString('pt-br', {
+                                    minimumFractionDigits:2,
+                                    style: 'currency',
+                                    currency: 'BRL'
+                                })}
+                            </div>
+                        </S.PriceContainer>
                     </div>
                 } />
             </S.Container>

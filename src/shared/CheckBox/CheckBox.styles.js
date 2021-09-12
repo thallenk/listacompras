@@ -18,7 +18,7 @@ export const Indicator = styled.div`
 
     /* Utilizando a prop value do checkBox para preencher a bolinha por completo */
     ${ props => props.value ? 'background-color: #feb309;' : ''}
-    border: 2px solid #feb309;
+    border: 2px solid #fda109;
 
     margin-right: 8px;
     cursor: pointer;
