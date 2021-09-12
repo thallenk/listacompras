@@ -5,9 +5,10 @@ import AppHeader from "../AppHeader/AppHeader";
 import ShoppingList from "../ShoppingList/ShoppingList";
 import productsMock from '../../mocks/products.json'
 import * as S from './App.styles'
+import extractPercentage from "../../utils/extractPercentage";
 
 function App() {
-    const colors = [ '#fac709','#fda109','#fd7b05', '#ED7014']
+    const colors = [ '#f4e30d','#fac709','#fda109','#fd7b05', '#ED7014']
 
 
 
@@ -53,10 +54,36 @@ function App() {
                     <div>
                         Estatisticas
                         
-                        <LineChart color = {colors[0]} title = "Saudável" percentage = {80}/>
-                        <LineChart color = {colors[1]} title = "Não tão saudável" percentage = {20}/>
-                        <LineChart color = {colors[2]} title = "Limpeza" percentage = {50}/>
-                        <LineChart color = {colors[3]} title = "Outros" percentage = {30}/>
+                        <LineChart 
+                        color = {colors[0]} 
+                        title = "Saudável" 
+                        percentage = {extractPercentage(
+                            selectedProducts.length,
+                            selectedProducts.filter(product => product.tags.includes('healthy')).length)}/>
+                        <LineChart 
+                        color = {colors[1]} 
+                        title = "Não tão saudável" 
+                        percentage = {extractPercentage(
+                            selectedProducts.length,
+                            selectedProducts.filter(product => product.tags.includes('junk')).length)}/>
+                        <LineChart 
+                        color = {colors[2]} 
+                        title = "Limpeza" 
+                        percentage = {extractPercentage(
+                            selectedProducts.length,
+                            selectedProducts.filter(product => product.tags.includes('cleaning')).length)}/>
+                        <LineChart 
+                        color = {colors[3]} 
+                        title = "Higiene" 
+                        percentage = {extractPercentage(
+                            selectedProducts.length,
+                            selectedProducts.filter(product => product.tags.includes('hygiene')).length)}/>
+                        <LineChart 
+                        color = {colors[4]} 
+                        title = "Outros" 
+                        percentage = {extractPercentage(
+                            selectedProducts.length,
+                            selectedProducts.filter(product => product.tags.includes('others')).length)}/>
                     </div>
                 } />
             </S.Container>
