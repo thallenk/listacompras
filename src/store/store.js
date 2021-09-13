@@ -1,7 +1,11 @@
 import { createStore, combineReducers } from 'redux'
+
+// para não perder o estado anterior ao atualizar a page
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+
 import CalculatorReducer from './Calculator/Calculator.reducer'
 import ProductsReducer from './Products/Products.reducer'
-
 
 
 const rootReducer = combineReducers({
@@ -9,6 +13,11 @@ const rootReducer = combineReducers({
     products: ProductsReducer
 })
 
-const store = createStore(rootReducer)
+const persistedReducer = persistReducer({
+    key: 'root',
+    storage
+}, rootReducer)
 
-export default store
+export const store = createStore(persistedReducer)
+
+export const persistedStore = persistStore(store)
