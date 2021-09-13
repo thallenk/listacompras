@@ -1,44 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import LineChart from "../../shared/LineChart/LineChart";
 import AppContainer from "../AppContainer/AppContainer";
 import AppHeader from "../AppHeader/AppHeader";
 import ShoppingList from "../ShoppingList/ShoppingList";
-import productsMock from '../../mocks/products.json'
 import * as S from './App.styles'
 import extractPercentage from "../../utils/extractPercentage";
 import Calculator from "../Calculator";
+import { useSelector } from "react-redux";
+import { selectAllProducts, selectSelectedProducts, selectSelectedProductsTotalPrice } from "../../store/Products/Products.selectors";
+import { useDispatch } from "react-redux";
+import { toggleProduct } from "../../store/Products/Products.actions";
 
 function App() {
     const colors = [ '#f4e30d','#fac709','#fda109','#fd7b05', '#ED7014']
 
-
-
-    const [products, setProducts] = useState(productsMock.products)
-    const [selectedProducts, setSelectedProducts] = useState([])
-    const [totalPrice, setTotalPrice] = useState(0) 
-
-
-    useEffect(() => {
-        const newSelectedProducts = products.filter((product) => product.checked )
-        setSelectedProducts(newSelectedProducts)
-    }, [products])
-
-    useEffect(() => {
-        const total = selectedProducts.map(product => product.price).reduce((a,b) => a + b, 0)
-        setTotalPrice(total)
-    }, [selectedProducts])
-    // const [health, setHealth] = useState(20)
-
-    // muda o estado da barrinha depois de 5 segundos
-    // useEffect(() => {
-    //     setTimeout(() => {
-    //         setHealth(80)
-    //     }, 5000)
-    // }, [])
+    // constante redux
+    const products = useSelector(selectAllProducts);
+    const selectedProducts = useSelector(selectSelectedProducts)
+    const totalPrice = useSelector(selectSelectedProductsTotalPrice)
+    const dispatch = useDispatch();
 
     function handleToggle(id) {
-        const newProducts = products.map( product => product.id === id ? {...product, checked: !product.checked} : product )
-        setProducts(newProducts)
+      dispatch(toggleProduct(id))
     }
     return  (
         <S.Wrapper>
@@ -56,6 +39,7 @@ function App() {
                         title ='sua lista de compras'
                         products ={selectedProducts}
                         onToggle = {handleToggle}
+                        displayOnleSelected = 'true'
                 />}
                 right = {
                     <div>
